@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011 Santiago Lezica
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.slezica.tools.widget;
 
 import java.util.ArrayList;
@@ -16,10 +32,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+
 public abstract class FilterableAdapter<ObjectType, ConstraintType> extends BaseAdapter implements Filterable {
 
-	private static final String TAG = "FilterableAdapter";
-	
+    private static final String TAG = "FilterableAdapter";
+    
     private List<ObjectType> mObjects, mDisplayedObjects;
 
     private int mResourceId;
@@ -37,19 +54,19 @@ public abstract class FilterableAdapter<ObjectType, ConstraintType> extends Base
     private final Object mFilterLock = new Object();
     
     public FilterableAdapter(Context context) {
-    	this(context, 0, 0, null);
+        this(context, 0, 0, null);
     }
     
     public FilterableAdapter(Context context, int resourceId) {
-    	this(context, resourceId, 0, null);
+        this(context, resourceId, 0, null);
     }
     
     public FilterableAdapter(Context context, List<ObjectType> objects) {
-    	this(context, 0, 0, objects);
+        this(context, 0, 0, objects);
     }
     
     public FilterableAdapter(Context context, int resourceId, List<ObjectType> objects) {
-    	this(context, resourceId, 0, objects);
+        this(context, resourceId, 0, objects);
     }
     
     public FilterableAdapter(Context context, int resourceId, int textResourceId, List<ObjectType> objects) {
@@ -64,15 +81,15 @@ public abstract class FilterableAdapter<ObjectType, ConstraintType> extends Base
     }
     
     public Context getContext() {
-    	return mContext;
+        return mContext;
     }
     
     protected List<ObjectType> getObjects() {
-    	return mObjects;
+        return mObjects;
     }
     
     protected Object getFilterLock() {
-    	return mFilterLock;
+        return mFilterLock;
     }
     
     protected boolean isOutOfSync() {
@@ -84,112 +101,112 @@ public abstract class FilterableAdapter<ObjectType, ConstraintType> extends Base
     }
     
     public void setNotifyOnChange(boolean notifyOnChange) {
-    	mNotifyOnChange = notifyOnChange;
+        mNotifyOnChange = notifyOnChange;
     }
     
     public void add(ObjectType object) {
-    	synchronized (mObjects) {
-    		mObjects.add(object);
-    	}
-    	
-    	if (mNotifyOnChange) notifyDataSetChanged();
+        synchronized (mObjects) {
+            mObjects.add(object);
+        }
+        
+        if (mNotifyOnChange) notifyDataSetChanged();
     }
     
     public void addAll(Collection<? extends ObjectType> collection) {
-    	synchronized (mObjects) {
-    		mObjects.addAll(collection);
-    	}
-    	
-    	if (mNotifyOnChange) notifyDataSetChanged();
+        synchronized (mObjects) {
+            mObjects.addAll(collection);
+        }
+        
+        if (mNotifyOnChange) notifyDataSetChanged();
     }
 
     public void addAll(ObjectType ... objects) {
-    	synchronized (mObjects) {
-    		for (ObjectType object : objects)
-    			mObjects.add(object);
-    	}
-    	
-    	if (mNotifyOnChange) notifyDataSetChanged();
+        synchronized (mObjects) {
+            for (ObjectType object : objects)
+                mObjects.add(object);
+        }
+        
+        if (mNotifyOnChange) notifyDataSetChanged();
     }
 
     public void insert(ObjectType object, int index) {
-    	synchronized (mObjects) {
-    		mObjects.add(index, object);
-    	}
-    	
-    	if (mNotifyOnChange) notifyDataSetChanged();
+        synchronized (mObjects) {
+            mObjects.add(index, object);
+        }
+        
+        if (mNotifyOnChange) notifyDataSetChanged();
     }
 
     public void remove(ObjectType object) {
-    	synchronized (mObjects) {
-    		mObjects.remove(object);
-    	}
-    	
-    	if (mNotifyOnChange) notifyDataSetChanged();
+        synchronized (mObjects) {
+            mObjects.remove(object);
+        }
+        
+        if (mNotifyOnChange) notifyDataSetChanged();
     }
 
     public void clear() {
-    	synchronized (mObjects) {
-    		mObjects.clear();
-    	}
-    	
-    	if (mNotifyOnChange) notifyDataSetChanged();
+        synchronized (mObjects) {
+            mObjects.clear();
+        }
+        
+        if (mNotifyOnChange) notifyDataSetChanged();
     }
 
     public void sort(Comparator<? super ObjectType> comparator) {
-    	synchronized (mObjects) {
-    		Collections.sort(mObjects, comparator);
-    	}
+        synchronized (mObjects) {
+            Collections.sort(mObjects, comparator);
+        }
         
         if (mNotifyOnChange) notifyDataSetChanged();
     }
     
     @Override
     public void notifyDataSetChanged() {
-    	boolean reapplyFilter;
-    	
-    	synchronized (mFilterLock) {
-    		reapplyFilter = mOutOfSync = (mLastFilter != null);
-		}
+        boolean reapplyFilter;
+        
+        synchronized (mFilterLock) {
+            reapplyFilter = mOutOfSync = (mLastFilter != null);
+        }
 
-    	if (reapplyFilter) {
-    		/* It would be amazing to only apply the filter to the
-    		 * new elements, but since the collection could have
-    		 * suffered unknown modifications, we can't.
-    		 */
-    		
-    		getFilter().filter(mLastFilter);
-    		
-    	} else {
-			synchronized (mObjects) {
-				mDisplayedObjects = new ArrayList<ObjectType>(mObjects);
-			}
-    	}
-    	
-    	doNotifyDataSetChanged();
+        if (reapplyFilter) {
+            /* It would be amazing to only apply the filter to the
+             * new elements, but since the collection could have
+             * suffered unknown modifications, we can't.
+             */
+            
+            getFilter().filter(mLastFilter);
+            
+        } else {
+            synchronized (mObjects) {
+                mDisplayedObjects = new ArrayList<ObjectType>(mObjects);
+            }
+        }
+        
+        doNotifyDataSetChanged();
     }
     
     protected void doNotifyDataSetChanged() {
-    	super.notifyDataSetChanged();
+        super.notifyDataSetChanged();
     }
     
-	@Override
-	public int getCount() {
-		return mDisplayedObjects.size();
-	}
-	
-	@Override
-	public ObjectType getItem(int position) {
-		return mDisplayedObjects.get(position);
-	}
-	
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-	
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+    @Override
+    public int getCount() {
+        return mDisplayedObjects.size();
+    }
+    
+    @Override
+    public ObjectType getItem(int position) {
+        return mDisplayedObjects.get(position);
+    }
+    
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+    
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         TextView textView;
 
@@ -218,31 +235,31 @@ public abstract class FilterableAdapter<ObjectType, ConstraintType> extends Base
         textView.setText(item.toString());
 
         return view;
-	}
-	
-	@Override
-	public Filter getFilter() {
-		if (mFilter == null)
-			mFilter = new ExtensibleFilter();
-		
-		return mFilter;
-	}
-	
-	protected abstract ConstraintType prepareFilter(CharSequence seq);
-	protected abstract boolean passesFilter(ObjectType object, ConstraintType constraint);
-	
-	protected class ExtensibleFilter extends Filter {
+    }
+    
+    @Override
+    public Filter getFilter() {
+        if (mFilter == null)
+            mFilter = new ExtensibleFilter();
+        
+        return mFilter;
+    }
+    
+    protected abstract ConstraintType prepareFilter(CharSequence seq);
+    protected abstract boolean passesFilter(ObjectType object, ConstraintType constraint);
+    
+    protected class ExtensibleFilter extends Filter {
 
-		@Override
+        @Override
         protected FilterResults performFiltering(CharSequence constraintSeq) {
             ArrayList<ObjectType> filteredObjects;
 
             synchronized (mFilterLock) {
-            	if (!mOutOfSync && mLastFilter != null && mLastFilter.equals(constraintSeq))
-            		return null;
-            	
-            	mOutOfSync = false;
-            	mLastFilter = constraintSeq;
+                if (!mOutOfSync && mLastFilter != null && mLastFilter.equals(constraintSeq))
+                    return null;
+                
+                mOutOfSync = false;
+                mLastFilter = constraintSeq;
             }
             
             synchronized (mObjects) {
@@ -271,11 +288,11 @@ public abstract class FilterableAdapter<ObjectType, ConstraintType> extends Base
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-        	if (results != null) {
-        		mDisplayedObjects = (List<ObjectType>) results.values;
-        	}
-        	
-        	doNotifyDataSetChanged();
+            if (results != null) {
+                mDisplayedObjects = (List<ObjectType>) results.values;
+            }
+            
+            doNotifyDataSetChanged();
         }
         
         protected FilterResults resultsFromList(List<ObjectType> list) {
@@ -286,6 +303,6 @@ public abstract class FilterableAdapter<ObjectType, ConstraintType> extends Base
             
             return fr;
         }
-		
-	}
+        
+    }
 }
