@@ -65,7 +65,7 @@ public class TaskManagerFragment extends Fragment {
     public void runWhenReady(Runnable runnable) {
         if (isReady())
             runNow(runnable);
-    
+
         else
             addPending(runnable);
     }
