@@ -19,16 +19,17 @@ package com.slezica.tools.async;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class TaskManagerFragment extends Fragment {
+public class TaskManagerFragment extends Fragment implements TaskManager {
 
     public static final String DEFAULT_TAG = "TaskManagerFragment";
 
     protected final Object mLock = new Object();
 
-    protected Boolean mReady = true;
+    protected Boolean mReady = false;
     protected List<Runnable> mPendingCallbacks = new LinkedList<Runnable>();
 
     @Override
@@ -47,8 +48,8 @@ public class TaskManagerFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         synchronized (mLock) {
             mReady = true;
