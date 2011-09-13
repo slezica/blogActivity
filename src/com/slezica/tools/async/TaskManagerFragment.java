@@ -48,9 +48,8 @@ public class TaskManagerFragment extends Fragment implements TaskManager {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         synchronized (mLock) {
             mReady = true;
 
