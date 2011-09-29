@@ -37,7 +37,7 @@ public class RearrangeableListView extends ListView {
      * a) Notified when an item is grabbed.
      * 
      * b) Notified when an item is supposed to be rearranged,
-     *    and given the change to allow or disallow the movement
+     *    and given the chance to allow or disallow the movement
      *    by returning true/false
      *    
      * c) Notified when the grabbed item is dropped.
