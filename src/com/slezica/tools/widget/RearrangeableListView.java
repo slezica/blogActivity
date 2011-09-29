@@ -32,7 +32,7 @@ public class RearrangeableListView extends ListView {
     }
     
     /* To avoid burdening the ListView with data management logic,
-     * the user must provide a RearrangeListener that will:
+     * the user must provide a RearrangeListener that will be:
      * 
      * a) Notified when an item is grabbed.
      * 
