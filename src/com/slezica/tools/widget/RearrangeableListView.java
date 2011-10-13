@@ -32,12 +32,12 @@ public class RearrangeableListView extends ListView {
     }
     
     /* To avoid burdening the ListView with data management logic,
-     * the user must provide a RearrangeListener that will:
+     * the user must provide a RearrangeListener that will be:
      * 
      * a) Notified when an item is grabbed.
      * 
      * b) Notified when an item is supposed to be rearranged,
-     *    and given the change to allow or disallow the movement
+     *    and given the chance to allow or disallow the movement
      *    by returning true/false
      *    
      * c) Notified when the grabbed item is dropped.
@@ -252,7 +252,7 @@ public class RearrangeableListView extends ListView {
                     childY = y - itemView.getTop();
                 
                 boolean allowed = movableView.onGrabAttempt(childX, childY);
-                
+
                 if (allowed) {
                     /* View says yes! Yee-ha!*/
                     grabItemByIndex(itemIndex);
