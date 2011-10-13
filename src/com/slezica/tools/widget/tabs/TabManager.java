@@ -1,4 +1,4 @@
-package com.etermax.smandroid.widget.tab;
+package com.slezica.tools.widget.tabs;
 
 import java.util.HashMap;
 import java.util.Map;

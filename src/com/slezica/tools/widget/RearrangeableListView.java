@@ -1,4 +1,4 @@
-package com.etermax.smandroid.widget;
+package com.slezica.tools.widget;
 
 /*
  * Copyright (C) 2011 Santiago Lezica

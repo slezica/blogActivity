@@ -1,4 +1,4 @@
-package com.etermax.smandroid.widget.tab;
+package com.slezica.tools.widget.tabs;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
