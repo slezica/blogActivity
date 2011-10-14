@@ -141,8 +141,10 @@ public class Idiom {
             items[0] = i0;
         }
         
+        public Object at(int index) { return items[index]; }
+        
         public int size() { return 1; }
-        public T0  at0()  { return (T0) items[0]; }        
+        public T0  first()  { return (T0) items[0]; }        
     }
     
     public static class Tuple2<T0, T1> extends Tuple1<T0> {
@@ -152,7 +154,7 @@ public class Idiom {
         }
         
         public int size() { return 2; }
-        public T1  at1()  { return (T1) items[1]; }
+        public T1  second()  { return (T1) items[1]; }
     }
 
     public static class Tuple3<T0, T1, T2> extends Tuple2<T0, T1> {
@@ -162,6 +164,8 @@ public class Idiom {
         }
         
         public int size() { return 3; }
-        public T2  at2()  { return (T2) items[2]; }
+        public T2  third()  { return (T2) items[2]; }
     }
+    
+    public static class Pair<T> extends Tuple2<T, T> { }
 }
