@@ -27,7 +27,6 @@ package com.slezica.tools.async;
 import java.util.LinkedList;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
