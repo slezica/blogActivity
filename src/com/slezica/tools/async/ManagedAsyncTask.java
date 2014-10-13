@@ -82,6 +82,10 @@ public abstract class ManagedAsyncTask<Params, Progress, Result> {
     public boolean cancel(boolean mayInterruptIfRunning) {
         return mTask.cancel(mayInterruptIfRunning);
     }
+    
+    protected void publishProgress(Progress... values){
+    	mTask.updateProgress(values);
+    }
 
     public boolean isCancelled() {
         return mTask.isCancelled();
@@ -119,7 +123,7 @@ public abstract class ManagedAsyncTask<Params, Progress, Result> {
                     ManagedAsyncTask.this.onProgressUpdate(values);
                 }
             });
-
+            
             return;
         };
 
@@ -140,6 +144,10 @@ public abstract class ManagedAsyncTask<Params, Progress, Result> {
                     ManagedAsyncTask.this.onCancelled();
                 }
             });
+        }
+        
+        protected void updateProgress(Progress... progress){
+        	publishProgress(progress);
         }
     }
 }
